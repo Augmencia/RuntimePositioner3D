@@ -1,0 +1,17 @@
+{
+    "author": {
+      "name": "Augmencia",
+      "url": "https://augmencia.com"
+    },
+    "dependencies": {
+        "com.unity.inputsystem": "1.7.0",
+        "com.unity.mathematics": "1.2.6"
+    },
+    "description": "Translate, rotate and scale 3D objects in Unity runtime",
+    "documentationUrl": "https://github.com/Augmencia/RuntimePositioner3D",
+    "displayName": "RuntimePositioner3D",
+    "name": "com.augmencia.runtimepositioner3d",
+    "unity": "2023.3",
+    "unityRelease": "35f1",
+    "version": "1.0.0"
+  }
