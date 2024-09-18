@@ -9,14 +9,14 @@ Tested with [Unity URP](https://docs.unity3d.com/6000.0/Documentation/Manual/uni
 1. Open the Package Manager from `Window > Package Manager`
 2. `"+" button > Add package from git URL`
 3. Enter the following
-   * https://github.com/Augmencia/RuntimePositioner3D.git?path=/Packages/RuntimePositioner3D
+   * https://github.com/Augmencia/RuntimePositioner3D.git?path=/Packages/RuntimePositioner3D#1.0.0
 
 Or, open `Packages/manifest.json` and add the following to the dependencies block.
 
 ```json
 {
     "dependencies": {
-         "com.augmencia.runtimepositioner3d": "https://github.com/Augmencia/RuntimePositioner3D.git?path=/Packages/RuntimePositioner3D"
+         "com.augmencia.runtimepositioner3d": "https://github.com/Augmencia/RuntimePositioner3D.git?path=/Packages/RuntimePositioner3D#1.0.0"
     }
 }
 ```
