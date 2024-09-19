@@ -8,6 +8,7 @@ namespace Augmencia.RuntimePositioner3D
         [SerializeField] private Collider _collider;
         [SerializeField] private MeshRenderer[] _meshRenderers;
         [SerializeField] private Vector3 _axis;
+        internal Vector3 Axis => _axis;
 
         private Positioner3D _positioner;
         private float _offsetScaledDistance;
@@ -20,7 +21,7 @@ namespace Augmencia.RuntimePositioner3D
 
             for (int i = 0; i < 3; ++i)
             {
-                if (_axis[i] != 0)
+                if (Axis[i] != 0)
                 {
                     _axisIndex = i;
                     break;

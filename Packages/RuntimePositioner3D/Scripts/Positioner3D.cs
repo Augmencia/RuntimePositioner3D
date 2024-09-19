@@ -8,6 +8,8 @@ namespace Augmencia.RuntimePositioner3D
 {
     public class Positioner3D : MonoBehaviour
     {
+        private const float k_ScalerRingFactor = 2.099f;
+
         [SerializeField]
         private Transform _manipulatedObject = null;
         public Transform ManipulatedObject
@@ -47,7 +49,23 @@ namespace Augmencia.RuntimePositioner3D
         public bool UseLocalSpace 
         {
             get => _useLocalSpace;
-            set => _useLocalSpace = value; // TODO: Update
+            set => _useLocalSpace = value;
+        }
+
+        [SerializeField]
+        private float _scalerRingRadius = .15f;
+        public float ScalerRingRadius 
+        {
+            get => ScalerRing.transform.localScale.x;
+            set
+            {
+                float v = value * 2f / k_ScalerRingFactor;
+                ScalerRing.transform.localScale = new Vector3(v, v, v);
+                foreach (TranslatorAxis translatorAxis in _axises.Select(a => a.GetComponent<TranslatorAxis>()).Where(a => a != null))
+                {
+                    translatorAxis.transform.localPosition = translatorAxis.Axis * (value + .05f);
+                }
+            }
         }
 
         internal Camera Camera { get; private set; }
@@ -60,6 +78,7 @@ namespace Augmencia.RuntimePositioner3D
         void Start()
         {
             Camera = Camera.main;
+            ScalerRingRadius = _scalerRingRadius;
 
             List<InputAction> actions = InputSystem.ListEnabledActions();
             _pointAction = actions.First(a => a.name == "Point");
