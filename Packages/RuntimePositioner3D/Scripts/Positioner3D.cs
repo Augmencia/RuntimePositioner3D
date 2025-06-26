@@ -85,6 +85,8 @@ namespace Augmencia.RuntimePositioner3D
             set => _scaleDownReducingFactor = value;
         }
 
+        public event OnAxisSelectionChangedEvent OnAxisSelectionChanged;
+
         internal Camera Camera { get; private set; }
 
         private AxisBase _selectedAxis = null;
@@ -213,6 +215,7 @@ namespace Augmencia.RuntimePositioner3D
                 }
             }
             _selectedAxis = axis;
+            OnAxisSelectionChanged?.Invoke(axis);
         }
     }
 }
