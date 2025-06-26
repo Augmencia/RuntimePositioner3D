@@ -68,6 +68,10 @@ namespace Augmencia.RuntimePositioner3D
             }
         }
 
+        [SerializeField]
+        private bool _scaleWhenGoingToTheOppositeDirection = false;
+        public bool ScaleWhenGoingToTheOppositeDirection { get => _scaleWhenGoingToTheOppositeDirection; set => _scaleWhenGoingToTheOppositeDirection = value; }
+
         internal Camera Camera { get; private set; }
 
         private AxisBase _selectedAxis = null;

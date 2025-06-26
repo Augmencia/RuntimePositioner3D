@@ -11,6 +11,8 @@ namespace Augmencia.RuntimePositioner3D
         private float _originalDistance;
         private Vector3 _originalScale;
         private Material _originalMaterial;
+        private Vector3 _originalHitPoint;
+        private Vector3 _originalVector;
 
         internal override void Initialize(Positioner3D positioner)
         {
@@ -46,8 +48,10 @@ namespace Augmencia.RuntimePositioner3D
                 Ray screenRay = new Ray(_positioner.Camera.transform.position, (hit.point - _positioner.Camera.transform.position).normalized);
                 if (plane.Raycast(screenRay, out float distance))
                 {
-                    _originalDistance = Vector3.Distance(screenRay.GetPoint(distance), _positioner.ManipulatedObject.position);
+                    _originalHitPoint = screenRay.GetPoint(distance);
+                    _originalDistance = Vector3.Distance(_originalHitPoint, _positioner.ManipulatedObject.position);
                     _originalScale = _positioner.ManipulatedObject.localScale;
+                    _originalVector = _originalHitPoint - _positioner.ManipulatedObject.position;
                     return true;
                 }
             }
@@ -60,8 +64,29 @@ namespace Augmencia.RuntimePositioner3D
             Ray ray = _positioner.Camera.ScreenPointToRay(screenPoint);
             if (plane.Raycast(ray, out float distance))
             {
-                float dist = Vector3.Distance(ray.GetPoint(distance), _positioner.ManipulatedObject.position);
-                _positioner.ManipulatedObject.localScale = _originalScale * dist / _originalDistance;
+                Vector3 hitPoint = ray.GetPoint(distance);
+                float dist = Vector3.Distance(hitPoint, _positioner.ManipulatedObject.position);
+                if (_positioner.ScaleWhenGoingToTheOppositeDirection)
+                {
+                    Vector3 currentVector = hitPoint - _positioner.ManipulatedObject.position;
+                    bool isTowardOriginalHit = Vector3.Dot(_originalVector, currentVector) >= 0;
+                    if (dist < _originalDistance && isTowardOriginalHit)
+                    {
+                        _positioner.ManipulatedObject.localScale = _originalScale * _originalDistance / (_originalDistance + _originalDistance - dist);
+                    }
+                    else if (!isTowardOriginalHit)
+                    {
+                        _positioner.ManipulatedObject.localScale = _originalScale * _originalDistance / (dist + _originalDistance + _originalDistance);
+                    }
+                    else
+                    {
+                        _positioner.ManipulatedObject.localScale = _originalScale * dist / _originalDistance;
+                    }
+                }
+                else
+                {
+                    _positioner.ManipulatedObject.localScale = _originalScale * dist / _originalDistance;
+                }
             }
         }
     }

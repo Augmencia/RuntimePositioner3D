@@ -646,6 +646,11 @@ PrefabInstance:
       propertyPath: _manipulatedObject
       value: 
       objectReference: {fileID: 5153570005913435434}
+    - target: {fileID: 4887896831563271994, guid: 70cc49bf5b383421f928bdd1ee35e73f,
+        type: 3}
+      propertyPath: _scaleWhenGoingToTheOppositeDirection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8996737266436379558, guid: 70cc49bf5b383421f928bdd1ee35e73f,
         type: 3}
       propertyPath: m_Name
