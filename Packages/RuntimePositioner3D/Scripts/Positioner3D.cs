@@ -69,8 +69,21 @@ namespace Augmencia.RuntimePositioner3D
         }
 
         [SerializeField]
-        private bool _scaleWhenGoingToTheOppositeDirection = false;
-        public bool ScaleWhenGoingToTheOppositeDirection { get => _scaleWhenGoingToTheOppositeDirection; set => _scaleWhenGoingToTheOppositeDirection = value; }
+        private bool _scaleDownWhenGoingToTheOppositeDirection = false;
+        public bool ScaleWhenGoingToTheOppositeDirection
+        {
+            get => _scaleDownWhenGoingToTheOppositeDirection;
+            set => _scaleDownWhenGoingToTheOppositeDirection = value;
+        }
+
+        [SerializeField]
+        [Tooltip("Used only when \"Scale down when going to the opposite direction\" is true")]
+        private float _scaleDownReducingFactor = 1f;
+        public float ScaleDownReducingFactor
+        {
+            get => _scaleDownReducingFactor;
+            set => _scaleDownReducingFactor = value;
+        }
 
         internal Camera Camera { get; private set; }
 

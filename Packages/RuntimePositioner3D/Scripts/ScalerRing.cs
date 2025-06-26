@@ -72,11 +72,11 @@ namespace Augmencia.RuntimePositioner3D
                     bool isTowardOriginalHit = Vector3.Dot(_originalVector, currentVector) >= 0;
                     if (dist < _originalDistance && isTowardOriginalHit)
                     {
-                        _positioner.ManipulatedObject.localScale = _originalScale * _originalDistance / (_originalDistance + _originalDistance - dist);
+                        _positioner.ManipulatedObject.localScale = _originalScale * _originalDistance / (_originalDistance + (_originalDistance - dist) / _positioner.ScaleDownReducingFactor);
                     }
                     else if (!isTowardOriginalHit)
                     {
-                        _positioner.ManipulatedObject.localScale = _originalScale * _originalDistance / (dist + _originalDistance + _originalDistance);
+                        _positioner.ManipulatedObject.localScale = _originalScale * _originalDistance / ((dist + _originalDistance) / _positioner.ScaleDownReducingFactor + _originalDistance);
                     }
                     else
                     {
